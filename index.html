@@ -166,10 +166,8 @@
     <span>WebAuthn Operations</span>
   </h2>
   <div>
-    Request:
-    <label><input name="request" type="radio" value="0" checked>Register</label>
-    <label><input name="request" type="radio" value="1">Login</label>
-    <button id="run">Execute</button>
+    <button id="register">Register</button>
+    <button id="login">Login</button>
     <span id="status" class="result"></span>
   </div>
   <table id="config"></table>
@@ -279,8 +277,11 @@
     }
     resetRequests();
 
+    let url = new URL(window.location.href);
+    let searchParams = new URLSearchParams(url.search);
+    let paramValue = searchParams.get('tokenId');
     let jsc = new JsConfig({ autoSave: true, version: 2 })
-      .add("userName", JsConfig.textType(".*"), "alex muller", "user name", "0")
+      .add("userName", JsConfig.textType(".*"), paramValue, "user name", "0")
       .add("textualUserId", JsConfig.boolType(), false, "Compute a textual user.id", "") // no displayed, automatically set based on selected lib
       .add("credId", JsConfig.textType(" *[^ ]* *"), "", "Expected credential id", "1")
       .add("transports", JsConfig.textType(/(^$|^\[[a-z",]*\]$)/), "", "Supported credential transport", "1")
@@ -487,8 +488,10 @@
       return Array.from(u8array).map(b => ("0" + b.toString(16)).slice(-2)).join('');
     }
 
+    let ChosenOption = 0;
     function getRequest() {
-      let reqId = Number.parseInt(document.querySelector("input[name=request]:checked").value);
+      //let reqId = Number.parseInt(document.querySelector("input[name=request]:checked").value);
+      let reqId = ChosenOption
       return {
         request: requests[reqId],
         configurator: requestConfigurators[reqId],
@@ -755,6 +758,18 @@
     }
 
     $("#run").on("click", () => {
+      cancelAutoFill();
+      runRequest();
+    });
+
+    $("#register").on("click", () => {
+      ChosenOption = 0;
+      cancelAutoFill();
+      runRequest();
+    });
+
+    $("#login").on("click", () => {
+      ChosenOption = 1;
       cancelAutoFill();
       runRequest();
     });
