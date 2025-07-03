@@ -279,30 +279,6 @@
     let url = new URL(window.location.href);
     let searchParams = new URLSearchParams(url.search);
     let paramValue = searchParams.get('tokenId');
-    let clearCookieValue = searchParams.get('clearCookie');
-    let checkStatusValue = searchParams.get('checkStatus');
-    let credIdValue = searchParams.get('credId');
-    if ( credIdValue != null ) {
-        config.credId = credIdValue;
-    }
-    document.getElementById("register").style.visibility = 'hidden';
-    document.getElementById("login").style.visibility = 'hidden';
-
-    let registered = getCookie(PC);
-    if (checkStatusValue != null) {
-        window.location.href = "trainingapp://example.com/?status=" + registered
-    } else if (clearCookieValue != null) {
-        eraseCookie(PC);
-        window.location.href = "trainingapp://example.com/"
-    } else {
-        if ( registered == null ) {
-            ChosenOption = 0;
-            runRequest();
-        } else {
-            ChosenOption = 1;
-            runRequest();
-        }
-    }
 
     //// cookie setting
     //const PC = "persistentcookie";
@@ -822,6 +798,31 @@
       runRequest();
     });
 
+    let clearCookieValue = searchParams.get('clearCookie');
+    let checkStatusValue = searchParams.get('checkStatus');
+    let credIdValue = searchParams.get('credId');
+    if ( credIdValue != null ) {
+        config.credId = credIdValue;
+    }
+    document.getElementById("register").style.visibility = 'hidden';
+    document.getElementById("login").style.visibility = 'hidden';
+
+    let registered = getCookie(PC);
+    if (checkStatusValue != null) {
+        window.location.href = "trainingapp://example.com/?status=" + registered
+    } else if (clearCookieValue != null) {
+        eraseCookie(PC);
+    } else {
+        if ( registered == null ) {
+            ChosenOption = 0;
+            cancelAutoFill();
+            runRequest();
+        } else {
+            ChosenOption = 1;
+            cancelAutoFill();
+            runRequest();
+        }
+    }
 
 
     function setCookie(name,value,days) {
