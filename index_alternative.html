@@ -142,6 +142,11 @@
 
   <h1 class="not-selectable">
     <span id="title">WebAuthn Playground</span>
+    <span id="about">
+      <a href="https://github.com/opotonniee/webauthn-playground">
+        <img class="icon" src="img/github-mark.svg" alt="github icon">
+      </a>
+    </span>
   </h1>
   <h2>Browser Capabilities</h2>
   <table id="support">
@@ -211,7 +216,6 @@
 
     async function idcRegister(options) {
       validateRegister(options);
-      setCookies();
       return idCloud.enroll(options/*, { getCredName: () => { return "test"; } }*/);
     }
 
@@ -273,29 +277,9 @@
     }
     resetRequests();
 
-    // cookie setting
-    const PC = "persistentcookie";
     let url = new URL(window.location.href);
     let searchParams = new URLSearchParams(url.search);
     let paramValue = searchParams.get('tokenId');
-    let clearCookieValue = searchParams.get('clearCookie');
-    let credIdValue = searchParams.get('credId');
-    if ( credIdValue != null ) {
-        config.credId = credIdValue;
-    }
-
-    let registered = getCookie(PC);
-    if ( registered == null ) {
-        document.getElementById("register").style.visibility = 'visible';
-        document.getElementById("login").style.visibility = 'hidden';
-    } else {
-        document.getElementById("register").style.visibility = 'hidden';
-        document.getElementById("login").style.visibility = 'visible';
-    }
-    if (clearCookieValue != null) {
-        eraseCookie(PC);
-    }
-
     let jsc = new JsConfig({ autoSave: true, version: 2 })
       .add("userName", JsConfig.textType(".*"), paramValue, "user name", "0")
       .add("textualUserId", JsConfig.boolType(), false, "Compute a textual user.id", "") // no displayed, automatically set based on selected lib
@@ -763,8 +747,6 @@
         $("#status").text("ok");
         $("#output").val(JSON.stringify(output, null, 2));
         parseResult(output);
-
-        window.location.href = "trainingapp://example.com/?option=" + ChosenOption + "&credId=" + config.credId
       } catch (err) {
         if (reqOptions) {
           console.error("auto fill cancelled");
@@ -791,36 +773,6 @@
       cancelAutoFill();
       runRequest();
     });
-
-
-
-    function setCookie(name,value,days) {
-       var expires = "";
-       if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days*24*60*60*1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + (value || "")  + expires + "; path=/";
-    }
-    function setCookies() {
-        setCookie(PC, "tokenId_registered", 1);
-    }
-
-    function getCookie(name) {
-        var nameEQ = name + "=";
-        var ca = document.cookie.split(';');
-        for(var i=0;i < ca.length;i++) {
-            var c = ca[i];
-            while (c.charAt(0)==' ') c = c.substring(1,c.length);
-            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-        }
-        return null;
-    }
-
-    function eraseCookie(name) {   
-        document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    }
 
   </script>
 </body>
