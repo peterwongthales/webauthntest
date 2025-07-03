@@ -278,24 +278,6 @@
     let url = new URL(window.location.href);
     let searchParams = new URLSearchParams(url.search);
     let paramValue = searchParams.get('tokenId');
-    let clearCookieValue = searchParams.get('clearCookie');
-    let credIdValue = searchParams.get('credId');
-    if ( credIdValue != null ) {
-        config.credId = credIdValue;
-    }
-
-    let registered = getCookie(PC);
-    if ( registered == null ) {
-        document.getElementById("register").style.visibility = 'visible';
-        document.getElementById("login").style.visibility = 'hidden';
-    } else {
-        document.getElementById("register").style.visibility = 'hidden';
-        document.getElementById("login").style.visibility = 'visible';
-    }
-    if (clearCookieValue != null) {
-        eraseCookie(PC);
-        window.location.href = "trainingapp://example.com/"
-    }
 
     let jsc = new JsConfig({ autoSave: true, version: 2 })
       .add("userName", JsConfig.textType(".*"), paramValue, "user name", "0")
@@ -793,6 +775,24 @@
       runRequest();
     });
 
+    let clearCookieValue = searchParams.get('clearCookie');
+    let credIdValue = searchParams.get('credId');
+    if ( credIdValue != null ) {
+        config.credId = credIdValue;
+    }
+
+    let registered = getCookie(PC);
+    if ( registered == null ) {
+        document.getElementById("register").style.visibility = 'visible';
+        document.getElementById("login").style.visibility = 'hidden';
+    } else {
+        document.getElementById("register").style.visibility = 'hidden';
+        document.getElementById("login").style.visibility = 'visible';
+    }
+    if (clearCookieValue != null) {
+        eraseCookie(PC);
+        window.location.href = "trainingapp://example.com/"
+    }
 
 
     function setCookie(name,value,days) {

@@ -813,15 +813,13 @@
     } else if (clearCookieValue != null) {
         eraseCookie(PC);
     } else {
-        if ( registered == null ) {
-            ChosenOption = 0;
-            cancelAutoFill();
-            runRequest();
-        } else {
-            ChosenOption = 1;
-            cancelAutoFill();
-            runRequest();
-        }
+        setTimeout(function() {
+            var button = document.getElementById('login');
+            if ( registered == null ) {
+                button = document.getElementById('register');
+            }
+            button.click();
+        }, 3000);
     }
 
 
