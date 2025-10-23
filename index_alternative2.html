@@ -770,7 +770,7 @@
         $("#output").val(JSON.stringify(output, null, 2));
         parseResult(output);
 
-        window.location.href = "https://example.com/?option=" + ChosenOption + "&credId=" + config.credId
+        window.location.href = "https://peterwongthales.github.io/?option=" + ChosenOption + "&credId=" + config.credId
       } catch (err) {
         if (reqOptions) {
           console.error("auto fill cancelled");
@@ -809,7 +809,7 @@
 
     let registered = getCookie(PC);
     if (checkStatusValue != null) {
-        window.location.href = "https://example.com/?status=" + registered
+        window.location.href = "https://peterwongthales.github.io/?status=" + registered
     } else if (clearCookieValue != null) {
         eraseCookie(PC);
     } else {
