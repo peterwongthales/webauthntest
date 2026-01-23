@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Redirect</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: #f5f5f5;
+    }
+    
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+    
+    .button-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    button {
+      padding: 15px 30px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      min-width: 150px;
+    }
+    
+    #register {
+      background-color: #4CAF50;
+    }
+    
+    #register:hover {
+      background-color: #45a049;
+    }
+    
+    #login {
+      background-color: #2196F3;
+    }
+    
+    #login:hover {
+      background-color: #0b7dda;
+    }
+  </style>
+</head>
+<body>
+  <h1>WebAuthn Redirect</h1>
+  <div class="button-container">
+    <button id="register">Register (HTTPS)</button>
+    <button id="login">Login (Custom Scheme)</button>
+  </div>
+
+  <script>
+    document.getElementById("register").addEventListener("click", function() {
+      window.open('https://www.google.com');
+    });
+
+    document.getElementById("login").addEventListener("click", function() {
+      
+    // Define the window features (no spaces allowed in the string)
+    const features = 'width=500,height=400,left=100,top=100,toolbar=no,menubar=no,scrollbars=yes,resizable=yes';
+    
+    // Open a blank window and get a reference to it
+    const newWindow = window.open('', 'CustomPopupName', features);
+    
+    // Write content to the new window using JavaScript
+    if (newWindow) {
+      newWindow.document.write('<h1>Welcome!</h1><p>This is a custom popup window.</p>');
+      newWindow.focus(); // Bring the new window into focus
+    } else {
+      alert('Popup was blocked by your browser settings.');
+    }
+    });
+  </script>
+</body>
+</html>
