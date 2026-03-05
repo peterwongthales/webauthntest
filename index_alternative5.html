@@ -537,8 +537,8 @@
       updateConfig(req);
       showSupport();
     }
-    //updateRequest();
-    //$("input[name=request]").on("change", updateRequest);
+    updateRequest();
+    $("input[name=request]").on("change", updateRequest);
 
     // Reset JSON input
     $("#reset-input").on("click", () => {
