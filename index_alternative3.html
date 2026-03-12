@@ -62,11 +62,16 @@
   <div class="button-container">
     <button id="register">Register (HTTPS)</button>
     <button id="login">Login (Custom Scheme)</button>
+    <button id="another">Another domain</button>
   </div>
 
   <script>
     document.getElementById("register").addEventListener("click", function() {
       window.location.href = "https://peterwongthales.github.io/?option=ABC&credId=XYZ";
+    });
+
+    document.getElementById("another").addEventListener("click", function() {
+      window.location.href = "https://stringlike-latrisha-purgatorial.ngrok-free.dev";
     });
 
     document.getElementById("login").addEventListener("click", function() {
