@@ -421,7 +421,7 @@
       request.attestation = config.attestation;
       request.user = { // all fields are REQUIRED
         name: config.userName,
-        displayName: capitalize(config.userName, true),
+        displayName: config.userName,
         // user.id is a byte buffer, and can be returned as the userHandle in authentication response,
         // Authenticators overwrite existing discoverable credentials that have the same rp.id and user.id
         // Note: IdCloud always provides it as a base64 encoded bytes array
