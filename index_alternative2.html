@@ -495,8 +495,8 @@
       showSupport();
     }
     jsc.onChange(configChanged)
-      .setConfig(localStorage.getItem("webauthn_pg_tests"))
-      .showConfigTable($("#config")[0], false);
+      .setConfig(localStorage.getItem("webauthn_pg_tests"));
+      //.showConfigTable($("#config")[0], false);
     $("#config tbody").prepend('<tr id="userLogin"><td>Auto fill:</td><td><input type="text" autoComplete="username webauthn" /></td></tr>');
 
     function stringifyUint8ArrayAsBase64(key, value) {
